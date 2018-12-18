@@ -6,75 +6,72 @@ require('dotenv').config()
 class Game extends Component {
 
 componentDidMount() {
-
-    // this.setState({ someProperty: { ...this.state.someProperty, flag: false} });
-
-    // const Ourlist = this.state.words
-
-    // Ourlist.forEach((Word) => {
-    //     this.setState({words : {...this.state.words, create : "test" } });
-    // })
-
-
-    //  need to fix the key
-    fetch('https://wordsapiv1.p.mashape.com/words/?random=true' ,{ headers:{
-        'X-RapidAPI-Key': process.env.WORDSKEY
-      }})
+    
+    fetch('https://opentdb.com/api.php?amount=10')
         .then(r => r.json())
-        .then(console.log)
+        .then((quiz) => {
+            console.log(quiz.results.forEach((questions) => (console.log(questions.question
+                ))))
+        })
 
-
-        
 }
 
 constructor(props) {
     super(props);
     this.state = {
+        attempts : 0,
         currentword : "",
         currentdef : " ",
-        words : [
+        questions : [
         {   id : 1,
-            word : 'create', 
+            question : 'create', 
             def : "bring (something) into existence.",
             wordsel : false,
             defsel : false
         },
         {   id : 2,
-            word : 'destroy', 
+            question : 'destroy', 
             def : "put an end to the existence of (something) by damaging or attacking it",
             wordsel : false,
             defsel : false
         },
-        {   id : 1,
-            word : 'preserve', 
+        {   id : 3,
+            question : 'preserve', 
             def : "maintain (something) in its original or existing state.",
             wordsel : false,
             defsel : false
         },
+        {   id : 4,
+            question : 'react', 
+            def : "respond or behave in a particular way in response to something",
+            wordsel : false,
+            defsel : false
+        }
         ]}
 }
 
 
 render() {
     
-    if (this.state.currentdef === this.state.currentword) {
-       console.log("They equal")
        
-    }
+    
 
     return (
+        <div>
+        <h1 className="text-white"> Match the answer with the question </h1>
         <div className="container">
             <div className="row">
                 <Words
-                words = {this.state.words}
+                questions = {this.state.questions}
                 changeWord = {this._handleWordCLick}
                 />
                 <Definitions
-                words = {this.state.words}
+                questions = {this.state.questions}
                 changeDef = {this._handleDefCLick}
             />
             </div>
-
+            </div>
+        <h1 className="text-white"> Attempts : {this.state.attempts}</h1>
         </div>
     )
 }
@@ -82,23 +79,61 @@ render() {
 
 
 _handleWordCLick = (wordObject) =>  {
-    this.setState({currentword : wordObject});
-    this.state.words.forEach((wordObj) => {
-        wordObj.wordsel = false
+
+    const newWords = this.state.questions.map((wordObj) => {
+        if (wordObj.id === wordObject.id) {
+            return {
+                ...wordObj, wordsel : !wordObj.wordsel
+    
+            }
+        } else {
+            return {
+                ...wordObj, wordsel : false
+            }
+        }
     })
-    // this.setState({words : [...this.state.words, this.state.words[1].selected = false ]})
-    wordObject.wordsel ? wordObject.wordsel=false : wordObject.wordsel=true
+    this.setState({
+        attempts : this.state.attempts + 1,
+        questions : newWords,
+        currentword : wordObject
+    },this._checkMatch)
 }
-_handleDefCLick = (wordObject) =>  {
-    this.setState({currentdef : wordObject})
-    this.state.words.forEach((wordObj) => {
-        wordObj.defsel = false
+_handleDefCLick = (wordObject) =>  {    
+    const newWords = this.state.questions.map((wordObj) => {
+        if (wordObj.id === wordObject.id) {
+            return {
+                ...wordObj,  defsel : !wordObj.defsel
+    
+            }
+        } else {
+            return {
+                ...wordObj, defsel : false
+            }
+        }
     })
-    wordObject.defsel ? wordObject.defsel=false : wordObject.defsel=true
+
+    this.setState({
+        attempts : this.state.attempts + 1,
+        questions : newWords,
+        currentdef : wordObject
+    },
+        this._checkMatch
+        )
 }
 
+_checkMatch = () => {
 
-
+    if (this.state.currentword.id === this.state.currentdef.id) {
+        const filteredWords = this.state.questions.filter((wordObj) => {
+            if (wordObj.id === this.state.currentdef.id) {
+                return false
+            }  else {
+                return true
+            }
+        })
+        this.setState({questions : filteredWords})
+    }
+}
 
 }
 

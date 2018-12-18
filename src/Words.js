@@ -12,7 +12,7 @@ class Words extends Component {
     arrayToWords = (array) => {
         const wordsArray = array.map((wordObject) => {
             return (
-                <li className={ wordObject.wordsel ? "list-group-item border border-warning" : "list-group-item"} onClick={() => this.props.changeWord(wordObject)}> {wordObject.word} </li>
+                <li className={ wordObject.wordsel ? "list-group-item border bg-info" : "list-group-item"} onClick={() => this.props.changeWord(wordObject)}> {wordObject.question} </li>
             )
         })
         return wordsArray
@@ -21,7 +21,7 @@ class Words extends Component {
     render() {
         return (
         <ul  className={"list-group col-sm"}>
-            {this.arrayToWords(this.props.words)}
+            {this.arrayToWords(this.props.questions)}
         </ul>
     )
 }
