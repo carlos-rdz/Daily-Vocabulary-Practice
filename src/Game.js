@@ -30,34 +30,32 @@ componentDidMount() {
 constructor(props) {
     super(props);
     this.state = {
-        currentWordClass : false,
-        currentDefClass : true,
         currentword : "",
         currentdef : " ",
         words : [
-        {create : "bring (something) into existence."},
-        {destroy : "put an end to the existence of (something) by damaging or attacking it"},
-        {preserve : "maintain (something) in its original or existing state."},
-        {Word_4 : "Def4"},
-        {Word_4 : "Def4"},
-        {Word_4 : "Def4"},
-        {Word_4 : "Def4"},
-        {Word_4 : "Def4"},
-        {Word_4 : "Def4"},
-        {Word_4 : "Def4"},
-        {Word_4 : "Def4"},
-        {Word_4 : "Def4"},
-        {Word_4 : "Def4"},
-        {Word_5 : "Def5"}
-            ]
-        }
+        {   id : 1,
+            word : 'create', 
+            def : "bring (something) into existence.",
+            selected : true
+        },
+        {   id : 2,
+            word : 'destroy', 
+            def : "put an end to the existence of (something) by damaging or attacking it",
+            selected : true
+        },
+        {   id : 1,
+            word : 'preserve', 
+            def : "maintain (something) in its original or existing state.",
+            selected : false
+        },
+        ]}
 }
 
 
 render() {
     
     if (this.state.currentdef === this.state.currentword) {
-       return this.setState({words : [...this.state.words]})
+       console.log("They equal")
        
     }
 
@@ -65,7 +63,6 @@ render() {
         <div className="container">
             <div className="row">
                 <Words
-                class = {this.state.currentWordClass}
                 words = {this.state.words}
                 changeWord = {this._handleWordCLick}
                 />
