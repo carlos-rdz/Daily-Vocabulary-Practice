@@ -36,17 +36,20 @@ constructor(props) {
         {   id : 1,
             word : 'create', 
             def : "bring (something) into existence.",
-            selected : true
+            wordsel : false,
+            defsel : false
         },
         {   id : 2,
             word : 'destroy', 
             def : "put an end to the existence of (something) by damaging or attacking it",
-            selected : true
+            wordsel : false,
+            defsel : false
         },
         {   id : 1,
             word : 'preserve', 
             def : "maintain (something) in its original or existing state.",
-            selected : false
+            wordsel : false,
+            defsel : false
         },
         ]}
 }
@@ -78,11 +81,20 @@ render() {
 
 
 
-_handleWordCLick = (event) =>  {
-    this.setState({currentword : event})
+_handleWordCLick = (wordObject) =>  {
+    this.setState({currentword : wordObject});
+    this.state.words.forEach((wordObj) => {
+        wordObj.wordsel = false
+    })
+    // this.setState({words : [...this.state.words, this.state.words[1].selected = false ]})
+    wordObject.wordsel ? wordObject.wordsel=false : wordObject.wordsel=true
 }
-_handleDefCLick = (event) =>  {
-    this.setState({currentdef : event})
+_handleDefCLick = (wordObject) =>  {
+    this.setState({currentdef : wordObject})
+    this.state.words.forEach((wordObj) => {
+        wordObj.defsel = false
+    })
+    wordObject.defsel ? wordObject.defsel=false : wordObject.defsel=true
 }
 
 
