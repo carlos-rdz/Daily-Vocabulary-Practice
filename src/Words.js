@@ -9,7 +9,16 @@ class Words extends Component {
 
     }
 
+    shuffle = (a) => {
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
     arrayToWords = (array) => {
+        // const shuffledArray = this.shuffle(array)
+
         const wordsArray = array.map((wordObject) => {
             return (
                 <li className={ wordObject.wordsel ? "list-group-item border bg-info" : "list-group-item"} onClick={() => this.props.changeWord(wordObject)}> {wordObject.question} </li>

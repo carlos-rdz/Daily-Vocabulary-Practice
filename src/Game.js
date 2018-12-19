@@ -30,8 +30,8 @@ constructor(props) {
             defsel : false
         },
         {   id : 2,
-            question : 'destroy', 
-            def : "put an end to the existence of (something) by damaging or attacking it",
+            question : 'engage', 
+            def : "consume all of one's attention or time",
             wordsel : false,
             defsel : false
         },
@@ -46,8 +46,47 @@ constructor(props) {
             def : "respond or behave in a particular way in response to something",
             wordsel : false,
             defsel : false
+        },
+        {   id : 5,
+            question : 'practice', 
+            def : "a customary way of operation or behavior",
+            wordsel : false,
+            defsel : false
+        },
+        {   id : 6,
+            question : 'issue', 
+            def : "some situation or event that is thought about",
+            wordsel : false,
+            defsel : false
+        },
+        {   id : 7,
+            question : 'approach', 
+            def : "move towards",
+            wordsel : false,
+            defsel : false
+        },
+        {   id : 8,
+            question : 'establish', 
+            def : "set up or found",
+            wordsel : false,
+            defsel : false
+        },
+        {   id : 9,
+            question : 'utter', 
+            def : "without qualification",
+            wordsel : false,
+            defsel : false
+        },
+        {   id : 10,
+            question : 'conduct', 
+            def : "direct the course of; manage or control",
+            wordsel : false,
+            defsel : false
         }
-        ]}
+        ]
+    
+    }
+        
 }
 
 
@@ -59,6 +98,7 @@ render() {
     return (
         <div>
         <h1 className="text-white"> Match the answer with the question </h1>
+            <h1 className="text-white"> Attempts : {this.state.attempts}</h1>
         <div className="container">
             <div className="row">
                 <Words
@@ -71,12 +111,18 @@ render() {
             />
             </div>
             </div>
-        <h1 className="text-white"> Attempts : {this.state.attempts}</h1>
         </div>
     )
 }
 
 
+shuffle = (a) => {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
 
 _handleWordCLick = (wordObject) =>  {
 
@@ -93,7 +139,7 @@ _handleWordCLick = (wordObject) =>  {
         }
     })
     this.setState({
-        attempts : this.state.attempts + 1,
+        // attempts : this.state.attempts + 1,
         questions : newWords,
         currentword : wordObject
     },this._checkMatch)
