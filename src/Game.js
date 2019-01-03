@@ -97,7 +97,7 @@ render() {
 
     return (
         <div>
-        <h1 className="text-white"> Match the answer with the question </h1>
+        <h1 className="text-white"> Match the word with the definition </h1>
             <h1 className="text-white"> Attempts : {this.state.attempts}</h1>
         <div className="container">
             <div className="row">
