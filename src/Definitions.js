@@ -4,8 +4,6 @@ import React from 'react'
 
 const Definitions = (props) => {
 
-
-
     const arrayToWords = (array) => {
 
         const wordsArray = array.map((wordObject) => {
