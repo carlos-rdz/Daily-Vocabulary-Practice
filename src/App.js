@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Game from './Game';
 
+
+// need to add mobile compatibility
 import './App.css';
 
 class App extends Component {
